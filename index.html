@@ -294,6 +294,7 @@ tr.clickable:hover td{background:var(--bg3)}
 .btn-secondary:hover{background:var(--bg4);color:var(--text)}
 .chk-suggest{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;min-height:0}
 .chk-offense-header{background:var(--bg2);border:1px solid var(--border2);border-left:4px solid var(--accent2);border-radius:0 14px 14px 0;padding:20px 24px;margin-bottom:16px;display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap;box-shadow:0 2px 10px rgba(0,0,0,.18)}
+.chk-state-note{background:var(--bg3);border:1px solid var(--border2);border-left:3px solid var(--accent2);border-radius:8px;padding:8px 14px;margin-bottom:12px;font-size:12px;line-height:1.5;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .chk-code{font-family:'IBM Plex Mono',monospace;font-size:36px;font-weight:700;color:var(--accent);line-height:1;flex-shrink:0}
 .chk-meta{flex:1}
 .chk-name{font-family:'Syne',sans-serif;font-size:20px;font-weight:600;color:var(--text);margin-bottom:8px}
@@ -661,6 +662,44 @@ tr.clickable:hover td{background:var(--bg3)}
 .guide-na-name{font-weight:500;text-decoration:line-through;color:var(--text3)}
 .guide-na-note{color:var(--text3);font-size:10px;font-style:italic}
 
+/* STATE SELECTOR */
+.state-select-wrap{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.state-select-wrap label{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;font-family:'IBM Plex Mono',monospace;white-space:nowrap}
+#state-select{
+  font-size:12px;font-family:'Inter',sans-serif;
+  padding:5px 28px 5px 9px;
+  border:1px solid var(--border2);border-radius:8px;
+  background:var(--bg3);color:var(--text);
+  cursor:pointer;outline:none;
+  -webkit-appearance:none;appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%238b909e' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 8px center;
+  transition:border-color .15s,background .15s;max-width:160px;
+}
+#state-select:focus{border-color:var(--accent2);background:var(--bg4)}
+#state-select option{background:var(--bg3)}
+
+/* STATE BANNER */
+.state-banner{
+  display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap;
+  background:var(--bg2);border:1px solid var(--border2);border-radius:12px;
+  padding:13px 16px;margin-bottom:20px;position:relative;
+  border-left:3px solid var(--accent2);
+}
+.state-banner-title{font-size:11px;font-weight:600;font-family:'Syne',sans-serif;color:var(--text);min-width:80px;flex-shrink:0;padding-top:1px}
+.state-banner-facts{display:flex;flex-wrap:wrap;gap:8px;align-items:center;flex:1}
+.state-fact{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-family:'IBM Plex Mono',monospace;padding:3px 9px;border-radius:6px;border:1px solid}
+.state-fact-label{color:var(--text3);margin-right:1px}
+.sf-rec{background:rgba(52,211,153,.08);border-color:rgba(52,211,153,.25);color:var(--green)}
+.sf-med{background:rgba(251,191,36,.08);border-color:rgba(251,191,36,.25);color:var(--amber)}
+.sf-ill{background:rgba(248,113,113,.08);border-color:rgba(248,113,113,.25);color:var(--red)}
+.sf-lim{background:rgba(167,139,250,.08);border-color:rgba(167,139,250,.25);color:var(--purple)}
+.sf-juv{background:rgba(45,212,191,.08);border-color:rgba(45,212,191,.25);color:var(--teal)}
+.sf-neutral{background:var(--bg3);border-color:var(--border2);color:var(--text2)}
+.state-banner-note{font-size:11px;color:var(--text2);line-height:1.55;flex-basis:100%;margin-top:4px;padding-top:8px;border-top:1px solid var(--border)}
+.state-banner-dismiss{position:absolute;top:10px;right:12px;background:none;border:none;color:var(--text3);cursor:pointer;font-size:14px;padding:2px 5px;border-radius:4px;line-height:1;transition:color .15s}
+.state-banner-dismiss:hover{color:var(--text)}
+
 /* PRINT */
 @media print{
   body{background:#fff!important;color:#000!important;font-size:11pt}
@@ -732,6 +771,63 @@ tr.clickable:hover td{background:var(--bg3)}
       <span class="search-kbd" id="search-kbd">/</span>
     </div>
     <div class="header-meta">FBI UCR &middot; 2025.0 &middot; DE 24 / DE 35</div>
+    <div class="state-select-wrap">
+      <label for="state-select">State</label>
+      <select id="state-select" onchange="setActiveState(this.value)">
+        <option value="">All States</option>
+        <option value="AL">AL — Alabama</option>
+        <option value="AK">AK — Alaska</option>
+        <option value="AZ">AZ — Arizona</option>
+        <option value="AR">AR — Arkansas</option>
+        <option value="CA">CA — California</option>
+        <option value="CO">CO — Colorado</option>
+        <option value="CT">CT — Connecticut</option>
+        <option value="DE">DE — Delaware</option>
+        <option value="DC">DC — Dist. of Columbia</option>
+        <option value="FL">FL — Florida</option>
+        <option value="GA">GA — Georgia</option>
+        <option value="HI">HI — Hawaii</option>
+        <option value="ID">ID — Idaho</option>
+        <option value="IL">IL — Illinois</option>
+        <option value="IN">IN — Indiana</option>
+        <option value="IA">IA — Iowa</option>
+        <option value="KS">KS — Kansas</option>
+        <option value="KY">KY — Kentucky</option>
+        <option value="LA">LA — Louisiana</option>
+        <option value="ME">ME — Maine</option>
+        <option value="MD">MD — Maryland</option>
+        <option value="MA">MA — Massachusetts</option>
+        <option value="MI">MI — Michigan</option>
+        <option value="MN">MN — Minnesota</option>
+        <option value="MS">MS — Mississippi</option>
+        <option value="MO">MO — Missouri</option>
+        <option value="MT">MT — Montana</option>
+        <option value="NE">NE — Nebraska</option>
+        <option value="NV">NV — Nevada</option>
+        <option value="NH">NH — New Hampshire</option>
+        <option value="NJ">NJ — New Jersey</option>
+        <option value="NM">NM — New Mexico</option>
+        <option value="NY">NY — New York</option>
+        <option value="NC">NC — North Carolina</option>
+        <option value="ND">ND — North Dakota</option>
+        <option value="OH">OH — Ohio</option>
+        <option value="OK">OK — Oklahoma</option>
+        <option value="OR">OR — Oregon</option>
+        <option value="PA">PA — Pennsylvania</option>
+        <option value="RI">RI — Rhode Island</option>
+        <option value="SC">SC — South Carolina</option>
+        <option value="SD">SD — South Dakota</option>
+        <option value="TN">TN — Tennessee</option>
+        <option value="TX">TX — Texas</option>
+        <option value="UT">UT — Utah</option>
+        <option value="VT">VT — Vermont</option>
+        <option value="VA">VA — Virginia</option>
+        <option value="WA">WA — Washington</option>
+        <option value="WV">WV — West Virginia</option>
+        <option value="WI">WI — Wisconsin</option>
+        <option value="WY">WY — Wyoming</option>
+      </select>
+    </div>
     <button id="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode" style="background:none;border:1px solid var(--border2);border-radius:8px;color:var(--text2);cursor:pointer;padding:5px 9px;font-size:15px;line-height:1;flex-shrink:0;transition:background .15s,color .15s" onmouseover="this.style.background='var(--bg3)';this.style.color='var(--text)'" onmouseout="this.style.background='none';this.style.color='var(--text2)'">&#9788;</button>
   </div>
 </header>
@@ -751,6 +847,8 @@ tr.clickable:hover td{background:var(--bg3)}
     <div class="stat-card"><div class="stat-label">Total data elements</div><div class="stat-val" id="cnt-de">57</div><div class="stat-sub">Across 7 segments</div></div>
     <div class="stat-card"><div class="stat-label">Code tables</div><div class="stat-val" id="cnt-ct">12</div><div class="stat-sub">Locations, weapons, drugs, bias&hellip;</div></div>
   </div>
+
+  <div id="state-banner" style="display:none"></div>
 
   <!-- MASTER SEARCH RESULTS -->
   <div id="search-results-panel">
@@ -906,6 +1004,61 @@ const exclusions=[
   ["64A","40B Assisting or Promoting Prostitution","Lesser Included","Promoting prostitution is lesser included under trafficking - commercial sex acts."],
   ["64A","40C Purchasing Prostitution","Lesser Included","Purchasing prostitution is lesser included under trafficking - commercial sex acts."],
 ];
+
+// Per-state context data: cannabis status, juvenile age notes
+const stateData={
+  AL:{name:"Alabama",cannabis:"med"},
+  AK:{name:"Alaska",cannabis:"rec"},
+  AZ:{name:"Arizona",cannabis:"rec"},
+  AR:{name:"Arkansas",cannabis:"med"},
+  CA:{name:"California",cannabis:"rec"},
+  CO:{name:"Colorado",cannabis:"rec"},
+  CT:{name:"Connecticut",cannabis:"rec"},
+  DE:{name:"Delaware",cannabis:"rec"},
+  DC:{name:"District of Columbia",cannabis:"rec"},
+  FL:{name:"Florida",cannabis:"med"},
+  GA:{name:"Georgia",cannabis:"lim"},
+  HI:{name:"Hawaii",cannabis:"med"},
+  ID:{name:"Idaho",cannabis:"ill"},
+  IL:{name:"Illinois",cannabis:"rec"},
+  IN:{name:"Indiana",cannabis:"lim"},
+  IA:{name:"Iowa",cannabis:"med"},
+  KS:{name:"Kansas",cannabis:"lim"},
+  KY:{name:"Kentucky",cannabis:"med"},
+  LA:{name:"Louisiana",cannabis:"med",juvNote:"Juvenile jurisdiction complex — 17-year-olds may be prosecuted as adults for felonies."},
+  ME:{name:"Maine",cannabis:"rec"},
+  MD:{name:"Maryland",cannabis:"rec"},
+  MA:{name:"Massachusetts",cannabis:"rec"},
+  MI:{name:"Michigan",cannabis:"rec"},
+  MN:{name:"Minnesota",cannabis:"rec"},
+  MS:{name:"Mississippi",cannabis:"med"},
+  MO:{name:"Missouri",cannabis:"rec"},
+  MT:{name:"Montana",cannabis:"rec"},
+  NE:{name:"Nebraska",cannabis:"med"},
+  NV:{name:"Nevada",cannabis:"rec"},
+  NH:{name:"New Hampshire",cannabis:"rec"},
+  NJ:{name:"New Jersey",cannabis:"rec"},
+  NM:{name:"New Mexico",cannabis:"rec"},
+  NY:{name:"New York",cannabis:"rec"},
+  NC:{name:"North Carolina",cannabis:"lim"},
+  ND:{name:"North Dakota",cannabis:"med"},
+  OH:{name:"Ohio",cannabis:"rec"},
+  OK:{name:"Oklahoma",cannabis:"med"},
+  OR:{name:"Oregon",cannabis:"rec"},
+  PA:{name:"Pennsylvania",cannabis:"med"},
+  RI:{name:"Rhode Island",cannabis:"rec"},
+  SC:{name:"South Carolina",cannabis:"ill",juvNote:"Family Court jurisdiction = under 17. 17-year-olds may be prosecuted as adults."},
+  SD:{name:"South Dakota",cannabis:"med"},
+  TN:{name:"Tennessee",cannabis:"lim"},
+  TX:{name:"Texas",cannabis:"lim",juvNote:"Juvenile = under 17 in TX. 17-year-olds are adults in criminal court — DE 52 only applies to arrestees age 16 and under."},
+  UT:{name:"Utah",cannabis:"med"},
+  VT:{name:"Vermont",cannabis:"rec"},
+  VA:{name:"Virginia",cannabis:"rec"},
+  WA:{name:"Washington",cannabis:"rec"},
+  WV:{name:"West Virginia",cannabis:"med"},
+  WI:{name:"Wisconsin",cannabis:"ill"},
+  WY:{name:"Wyoming",cannabis:"lim"},
+};
 
 // UCR Offense Hierarchy (most → least serious)
 // Used for: Multiple Clearance Indicator (DE 44), arrest offense selection,
@@ -2856,7 +3009,10 @@ function calcAge(){
     if(m<0||(m===0&&d<0))age--;
     if(age>98){code="99";label="Over 98 years old";}
     else{code=String(age).padStart(2,"0");label=`${age} year${age!==1?"s":""} old`;}
-    if(age<18) note="Juvenile — if arrested, DE 52 (Disposition of Arrestee Under 18) is required.";
+    if(age<18){
+      note="Juvenile — if arrested, DE 52 (Disposition of Arrestee Under 18) is required.";
+      if(activeState&&stateData[activeState]?.juvNote) note+=" "+stateData[activeState].juvNote;
+    }
   }
 
   out.innerHTML=`<div class="age-result">
@@ -2994,6 +3150,43 @@ function runCmdSearch(q){
 
   res.innerHTML=sections.length?sections.join("") :`<div class="cmd-empty">No results for "${q}"</div>`;
   cmdActiveIdx=-1;
+}
+
+// ============================================================
+//  STATE SELECTOR
+// ============================================================
+const cannabisLabel={rec:"Recreational",med:"Medical only",lim:"Limited/CBD only",ill:"Illegal"};
+const cannabisClass={rec:"sf-rec",med:"sf-med",lim:"sf-lim",ill:"sf-ill"};
+const cannabisNote={
+  rec:"Cannabis is legal here — possession/personal use alone may not be chargeable. Confirm with your DA before coding 35A for cannabis.",
+  med:"Cannabis is medical-only here — recreational possession is chargeable. Medical patients may have an affirmative defense.",
+  lim:"Cannabis is very restricted here (CBD/limited medical only) — most cannabis possession is chargeable.",
+  ill:"Cannabis is fully illegal here — all possession and use is chargeable."
+};
+
+let activeState=null;
+function setActiveState(abbr){
+  activeState=abbr||null;
+  localStorage.setItem("nibrs_state",abbr||"");
+  const sel=document.getElementById("state-select");
+  if(sel)sel.value=abbr||"";
+  renderStateBanner();
+  renderCodes();
+  renderDrug();
+  if(currentCheckerCode) setCheckerCode(currentCheckerCode);
+}
+function renderStateBanner(){
+  const el=document.getElementById("state-banner");
+  if(!el)return;
+  if(!activeState){el.style.display="none";el.innerHTML="";return;}
+  const s=stateData[activeState];
+  if(!s){el.style.display="none";return;}
+  let html=`<div class="state-fact"><strong>${s.name}</strong></div>`;
+  html+=`<div class="state-fact"><span class="sf-neutral">Cannabis (35A):</span> <span class="${cannabisClass[s.cannabis]||'sf-neutral'}">${cannabisLabel[s.cannabis]||s.cannabis}</span></div>`;
+  if(s.juvNote) html+=`<div class="state-fact sf-juv"><span class="sf-neutral">Juvenile note:</span> ${s.juvNote}</div>`;
+  html+=`<button class="state-banner-dismiss" onclick="setActiveState('')">&#10005; Clear state</button>`;
+  el.innerHTML=html;
+  el.style.display="flex";
 }
 
 const GROUP_NAMES={1:"Reference",2:"Code Tables",3:"Arrest & Clear.",4:"Analysis",5:"Tools"};
@@ -3612,6 +3805,7 @@ function renderCodes(){
         <span class="chip ${r[2]==="A"?"ch-ga":"ch-gb"}">Grp ${r[2]}</span>
         ${r[4]==="required"?`<span class="chip ch-req">Prop.req</span>`:""}
         ${r[6].map(vc).join(" ")}
+        ${r[0]==="35A"&&activeState&&stateData[activeState]?`<span class="chip ${cannabisClass[stateData[activeState].cannabis]}" style="font-size:10px">Cannabis ${cannabisLabel[stateData[activeState].cannabis]} in ${activeState}</span>`:""}
       </div>
       ${op?`<div class="code-card-expand">
         ${r[5].length?`<div style="margin-bottom:6px">${r[5].map(lc).join(" ")}</div>`:""}
@@ -3660,7 +3854,15 @@ function renderDrug(){
   const tb=document.getElementById("tb-drug");
   document.getElementById("nr-drug").style.display=rows.length?"none":"block";
   document.getElementById("st-drug").textContent=`${rows.length} of ${drugTypes.length} drug types`;
-  tb.innerHTML=rows.map(r=>`<tr><td class="code-cell">${hl(r[0],q)}</td><td>${hl(r[1],q)}</td></tr>`).join("");
+  const cannabisDrugTypes=["C","E"];
+  tb.innerHTML=rows.map(r=>{
+    let stateChip="";
+    if(activeState&&cannabisDrugTypes.includes(r[0])&&stateData[activeState]){
+      const s=stateData[activeState];
+      stateChip=` <span class="chip ${cannabisClass[s.cannabis]||''}" style="font-size:10px">${cannabisLabel[s.cannabis]||s.cannabis} in ${activeState}</span>`;
+    }
+    return `<tr><td class="code-cell">${hl(r[0],q)}</td><td>${hl(r[1],q)}${stateChip}</td></tr>`;
+  }).join("");
 }
 function filterDrug(){renderDrug();}
 
@@ -4140,7 +4342,7 @@ function renderChecker(r){
         ? deRow("52","Juvenile Disposition","R","H=Handled/Released, R=Referred to Juvenile Court, T=Referred to Welfare, D=Referred to Other Agency, A=Referred to Criminal Court","REQUIRED — arrestee is under 18.")
         : g&&g.juvArr==="N"
           ? naRow("52","Juvenile Disposition","arrestee is 18 or older")
-          : deRow("52","Juvenile Disposition","C","H=Handled/Released, R=Referred to Juvenile Court, T=Referred to Welfare, D=Referred to Other Agency, A=Referred to Criminal Court","Required ONLY when DE 47 (age) is under 18.")}
+          : deRow("52","Juvenile Disposition","C","H=Handled/Released, R=Referred to Juvenile Court, T=Referred to Welfare, D=Referred to Other Agency, A=Referred to Criminal Court","Required ONLY when DE 47 (age) is under 18."+(activeState&&stateData[activeState]?.juvNote?" "+stateData[activeState].juvNote:""))}
     </div>
   </div>`;
 
@@ -4168,6 +4370,11 @@ function renderChecker(r){
         </div>
       </div>
     </div>
+    ${code==="35A"&&activeState&&stateData[activeState]?`<div class="chk-state-note">
+      <span class="sf-neutral" style="font-weight:600">${activeState} — Cannabis:</span>
+      <span class="${cannabisClass[stateData[activeState].cannabis]}">${cannabisLabel[stateData[activeState].cannabis]}</span>
+      <span style="color:var(--text2)">${cannabisNote[stateData[activeState].cannabis]||""}</span>
+    </div>`:""}
     ${g!==null?`<div class="guide-banner">
       <div class="guide-banner-title">
         <span>Guided Mode — describe your situation to resolve conditionals</span>
@@ -4760,6 +4967,8 @@ function toggleTheme(){
 (function(){
   const t=localStorage.getItem("nibrs_theme");
   if(t==="light"){document.documentElement.dataset.theme="light";document.getElementById("theme-toggle").textContent="\u263d";}
+  const s=localStorage.getItem("nibrs_state");
+  if(s)setActiveState(s);
 })();
 
 buildTabBar();
